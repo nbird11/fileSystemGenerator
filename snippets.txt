@@ -1,0 +1,3 @@
+cd C:\Users\natha\AppData\Local\Programs\Python\Python311\Scripts
+
+.\pyinstaller --noconfirm --onedir --windowed --add-data "C:/Users/natha/AppData/Local/Programs/Python/Python311/Lib/site-packages/customtkinter;customtkinter/" "C:/Users/natha/Programming/Personal/Python/fileSystemMaker/create_file_system.py"
