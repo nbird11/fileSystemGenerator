@@ -3,7 +3,7 @@ This program uses the customtkinter python package to display a simple gui for t
 
 ---
 ## How to Use
-
+![sample-gui](.\assets\sample-gui.png)
 
 
 ### About
