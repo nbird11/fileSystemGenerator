@@ -8,3 +8,6 @@ This program uses the customtkinter python package to display a simple gui for t
 
 ### About
 This is a project that one of my roommates, Ethan, wanted which I thought would be a good practice project.
+
+### Authors
+- Nathan Bird - Contact me at nathanbirdka@gmail.com
