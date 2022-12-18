@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(
-    ['C:/Users/natha/Programming/Personal/GitHubProjects/folder_organizer/create_file_system.py'],
+    ['create_file_system.py'],
     pathex=[],
     binaries=[],
     datas=[('C:/Users/natha/AppData/Local/Programs/Python/Python311/Lib/site-packages/customtkinter', 'customtkinter/')],
