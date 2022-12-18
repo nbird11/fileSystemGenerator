@@ -18,7 +18,7 @@ class App(ctk.CTk):
 
         self.label_root_dir = ctk.CTkLabel(self, text="Full path of root directory to create folder system in:")
         self.label_root_dir.grid(column=0, row=0, columnspan=3, padx=10, pady=10, sticky=ctk.W)
-        self.entry_root_dir = ctk.CTkEntry(self, placeholder_text=os.path.abspath("."), width=500)
+        self.entry_root_dir = ctk.CTkEntry(self, placeholder_text=os.path.abspath("..\\.."), width=500)
         self.entry_root_dir.grid(column=0, row=1, columnspan=3, padx=10, sticky=ctk.W)
         self.button_browse_local_dirs = ctk.CTkButton(self, text="Browse", command=self._browse_local)
         self.button_browse_local_dirs.grid(column=4, row=1, padx=10, sticky=ctk.E)
