@@ -1,12 +1,15 @@
 import os
 import customtkinter as ctk
 from customtkinter import filedialog
+from tkinter import messagebox
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
 class App(ctk.CTk):
     def __init__(self):
+        """Creates the gui for the create_file_system application with its functionalities.
+        """
         super().__init__()
 
         # configure window
@@ -17,7 +20,7 @@ class App(ctk.CTk):
         self.label_root_dir.grid(column=0, row=0, columnspan=3, padx=10, pady=10, sticky=ctk.W)
         self.entry_root_dir = ctk.CTkEntry(self, placeholder_text=os.path.abspath("."), width=500)
         self.entry_root_dir.grid(column=0, row=1, columnspan=3, padx=10, sticky=ctk.W)
-        self.button_browse_local_dirs = ctk.CTkButton(self, text="Browse", command=self.browse_local)
+        self.button_browse_local_dirs = ctk.CTkButton(self, text="Browse", command=self._browse_local)
         self.button_browse_local_dirs.grid(column=4, row=1, padx=10, sticky=ctk.E)
 
         self.label_root_name = ctk.CTkLabel(self, text="Name of the Root Folder for file structure:")
@@ -50,17 +53,21 @@ class App(ctk.CTk):
         self.label_subunit_format_tip.grid(column=1, row=8, padx=10, sticky=ctk.W)
 
 
-        self.button_generate_dirs = ctk.CTkButton(self, text="Generate File System", command=self.generate_dirs)
+        self.button_generate_dirs = ctk.CTkButton(self, text="Generate File System", command=self._generate_dirs)
         self.button_generate_dirs.grid(column=4, row=10, padx=10, pady=100, sticky=ctk.E)
 
 
 
-    def browse_local(self):
+    def _browse_local(self):
+        """Creates a new window with directory browsing capabilities.
+        """
         dir_name = filedialog.askdirectory(initialdir=os.path.abspath("."))
         self.entry_root_dir.configure(placeholder_text=os.path.abspath(dir_name))
 
 
-    def generate_dirs(self):
+    def _generate_dirs(self):
+        """Gets all the current settings from the gui entries then generates the directories using those settings.
+        """
         initialdir = os.path.abspath(".")
 
         root_dir = self.entry_root_dir.get() if (self.entry_root_dir.get() != "") else self.entry_root_dir.cget("placeholder_text")
@@ -69,19 +76,28 @@ class App(ctk.CTk):
         if self.entry_num_units.get() != "":
             num_units = int(self.entry_num_units.get())
         else:
-            raise AttributeError("Number of units has not been assigned.")      # Add pop-up window functionality
+            self._pop_up(message_type="warning", message="Number of Units entry unfilled.")
+            return
         
         if self.entry_num_subunits.get() != "":
             num_subunits = int(self.entry_num_subunits.get())
         else:
-            raise AttributeError("Number of subunits has not been assigned.")   # Add pop-up window functionality
+            self._pop_up(message_type="warning", message="Number of Subunits entry unfilled.")
+            return
 
         unit_format = self.entry_unit_format.get() if (self.entry_unit_format.get() != "") else self.entry_unit_format.cget("placeholder_text")
         subunit_format = self.entry_subunit_format.get() if (self.entry_subunit_format.get() != "") else self.entry_subunit_format.cget("placeholder_text")
 
         os.chdir(root_dir)
 
-        os.mkdir(root_name)
+        try:
+            os.mkdir(root_name)
+        except:
+            msg = f"Root directory '{root_name}' already exists in this context.\n"
+            msg += "Either change the name in the Root Folder Name entry, or delete the existing directory."
+            self._pop_up(message_type='error', message=msg)
+            return
+
         os.chdir(root_name)
         
         for i in range(num_units):
@@ -94,6 +110,24 @@ class App(ctk.CTk):
             os.chdir("..")
 
         os.chdir(initialdir)
+ 
+        self._pop_up(message_type="info", message=f"File System generated successfully in: {initialdir}")
+    
+
+    def _pop_up(self, message_type: str, message: str):
+        """Creates a new popup window.
+        
+        :param message_type - The type of popup (can be ['info', 'error', 'warning']) 
+        :param message - The message to display in the popup
+        """
+        if message_type == 'info':
+            messagebox.showinfo(title="INFO", message=message)
+        elif message_type == 'warning':
+            messagebox.showwarning(title="WARNING", message=message)
+        elif message_type == 'error':
+            messagebox.showerror(title="ERROR", message=message)
+        else:
+            assert False, "You typed a wrong message_type somewhere when calling this function"
 
 
 
