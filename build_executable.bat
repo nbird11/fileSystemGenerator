@@ -1,0 +1,2 @@
+pyinstaller --noconfirm --onefile --windowed --add-data "C:/Users/natha/AppData/Local/Programs/Python/Python311/Lib/site-packages/customtkinter;customtkinter/" create_file_system.py
+rm create_file_system.spec
