@@ -20,4 +20,4 @@ This is my first project for a client, which was my roommate at the time. He rea
 
 Nathan Bird
 <br>
-[nathanbirdka@gmail.com](nathanbirdka@gmail.com)
+[nathanbirdka@gmail.com](mailto:nathanbirdka@gmail.com)
